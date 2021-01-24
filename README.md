@@ -44,39 +44,24 @@
 |---------------------|------------|-------------------|
 | user                | references | foreign_key: true |
 | product             | references | foreign_key: true |
-| shipping            | references | foreign_key: true |
-| credit_card         | references | foreign_key: true |
 
 ### Association
 
 - belongs_to :user
 - belongs_to :product
 - has_one :shipping
-- has_one :credit_card
+
 
 # shippings
 
 |column               |type        |options            |
 |---------------------|------------|-------------------|
-| post_number         | integer    | null: false       |
+| post_number         | string     | null: false       |
 | prefecture _id      | integer    | null: false       |
 | city                | string     | null: false       |
-| house_number        | text       | null: false       |
-| building            | string     | null: false       |
-| telephone_number    | integer    | null: false       |
-| buyer               | references | foreign_key: true |
-
-### Association
-
-- belongs_to :buyer
-
-## credit_cards
-
-|column               |type        |options            |
-|---------------------|------------|-------------------|
-| card_id             | integer    | null: false       |
-| expiration          | date       | null: false       |
-| security_code       | integer    | null: false       |
+| house_number        | string     | null: false       |
+| building            | string     |                   |
+| telephone_number    | string     | null: false       |
 | buyer               | references | foreign_key: true |
 
 ### Association
