@@ -3,35 +3,34 @@
 
 ## users テーブル 
 
-| column          | type   | options     |
-|-----------------|--------|-------------|
-| nickname        | string | null: false |
-| email           | string | null: false |
-| password        | string | null: false |
-| first_name      | text   | null: false |
-| last_name       | text   | null: false |
-| first_name_kana | text   | null: false |
-| last_name_kana  | text   | null: false |
-| birth_date      | text   | null: false |
+| column             | type   |options                  |
+|--------------------|--------|-------------------------|
+| nickname           | string |null: false              |
+| email              | string |null: false, unique: true|
+| encrypted_password | string |null: false              |
+| first_name         | string |null: false              |
+| last_name          | string |null: false              |
+| first_name_kana    | string |null: false              |
+| last_name_kana     | string |null: false              |
+| birth_date         | date   |null: false              |
 
 ### Association
 
-- has_many :product
-- has_many :buyer
+- has_many :products
+- has_many :buyers
 
 ## products テーブル
 
 | column            | type          | options           |
 |-------------------|---------------|-------------------|
 | title             | string        | null: false       |
-| image             | ActiveStorage |                   |
 | text              | text          | null: false       |
-| category          | text          | null: false       |
-| condition         | text          | null: false       |
-| send_cost         | text          | null: false       |
-| prefecture        | text          | null: false       |
-| send_days         | text          | null: false       |
-| price             | text          | null: false       |
+| category_id       | integer       | null: false       |
+| condition_id      | integer       | null: false       |
+| cost_id           | integer       | null: false       |
+| prefecture_id     | integer       | null: false       |
+| days_id           | integer       | null: false       |
+| price             | integer       | null: false       |
 | user              | references    | foreign_key: true |
 
 ### Association
@@ -43,19 +42,43 @@
 
 |column               |type        |options            |
 |---------------------|------------|-------------------|
-| card_id             | text       | null: false       |
-| expiration          | text       | null: false       |
-| security_code       | text       | null: false       |
-| post_number         | text       | null: false       |
-| prefecture          | text       | null: false       |
-| city                | text       | null: false       |
-| house_number        | text       | null: false       |
-| building            | text       | null: false       |
-| telephone_number    | text       | null: false       |
 | user                | references | foreign_key: true |
 | product             | references | foreign_key: true |
+| shipping            | references | foreign_key: true |
+| credit_card         | references | foreign_key: true |
 
 ### Association
 
 - belongs_to :user
 - belongs_to :product
+- has_one :shipping
+- has_one :credit_card
+
+# shippings
+
+|column               |type        |options            |
+|---------------------|------------|-------------------|
+| post_number         | integer    | null: false       |
+| prefecture _id      | integer    | null: false       |
+| city                | string     | null: false       |
+| house_number        | text       | null: false       |
+| building            | string     | null: false       |
+| telephone_number    | integer    | null: false       |
+| buyer               | references | foreign_key: true |
+
+### Association
+
+- belongs_to :buyer
+
+## credit_cards
+
+|column               |type        |options            |
+|---------------------|------------|-------------------|
+| card_id             | integer    | null: false       |
+| expiration          | date       | null: false       |
+| security_code       | integer    | null: false       |
+| buyer               | references | foreign_key: true |
+
+### Association
+
+- belongs_to :buyer
