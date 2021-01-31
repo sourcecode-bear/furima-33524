@@ -10,12 +10,10 @@ RSpec.describe User, type: :model do
           expect(FactoryBot.create(:user)).to be_valid
         end
       end
-
       context '新規登録できないとき' do
         it "nicknameがない場合は登録できないこと" do
           expect(FactoryBot.build(:user, nickname: "")).to_not be_valid include("Nickname can't be blank")
         end
-  
         it "emailがない場合は登録できないこと" do
           expect(FactoryBot.build(:user, email: "")).to_not be_valid include("Email can't be blank")
         end
@@ -25,18 +23,25 @@ RSpec.describe User, type: :model do
         end
   
         it "passwordがない場合は登録できないこと" do
-          
           expect(FactoryBot.build(:user, password: "")).to_not be_valid include("Password can't be blank")
         end
   
         it "encrypted_passwordがない場合は登録できないこと" do
-          expect(FactoryBot.build(:user, encrypted_password: "")).to_not be_valid include("Encrypted password can't be blank")
+          expect(FactoryBot.build(:user, password: "")).to_not be_valid include("Encryted_Password can't be blank")
         end
   
+        it "passwordの値が英語のみでは登録できないこと" do
+          expect(FactoryBot.build(:user, password: "aaaaaa")).to_not be_valid include("Password is invalid")
+        end
+
+        it "passwordの値が全角では登録できないこと" do
+          expect(FactoryBot.build(:user, password: "AAAAAA")).to_not be_valid include("Password is invalid")
+        end
+
         it "last_nameがない場合は登録できないこと" do
           expect(FactoryBot.build(:user, last_name: "")).to_not be_valid include("Last name can't be blank")
         end
-  
+
         it "last_name_kanaがない場合は登録できないこと" do
           expect(FactoryBot.build(:user, last_name_kana: "")).to_not be_valid include("Last name kana can't be blank")
         end
