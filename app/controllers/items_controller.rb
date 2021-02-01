@@ -4,9 +4,9 @@ class ItemsController < ApplicationController
   
  end
 
- def new
-  @items = Item.new
- end
+ #def new
+  #@items = Item.new
+ #end
 
  #def create
     #@items = Item.new(item_params)
