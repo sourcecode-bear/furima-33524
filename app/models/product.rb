@@ -20,6 +20,7 @@ class Product < ApplicationRecord
    end
    
    with_options presence: true do
+    validates :image
     validates :title
     validates :text
     validates :category_id
