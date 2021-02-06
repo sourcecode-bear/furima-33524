@@ -3,18 +3,7 @@ require 'rails_helper'
 RSpec.describe Product, type: :model do
  before do
   @product = FactoryBot.build(:product)
- end
-    
-   describe '商品情報入力ページへの遷移' do
-
-    context '商品情報入力ページへ遷移できない' do
-
-     it "ログアウト状態だと出品ページへ遷移できない" do
-     @product.user_id = nil
-     expect(@product.errors.full_messages).to include "You need to sign in or sign up before continuing."
-     end
-    end
-   end
+ end 
      
    describe '商品情報入力' do
 
