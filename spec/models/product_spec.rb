@@ -1,78 +1,96 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+ before do
+  @product = FactoryBot.build(:product)
+ end
+    
+   describe '商品情報入力ページへの遷移' do
 
- describe '商品情報入力' do
-   context '出品できるとき' do
-   it "ログイン状態なら出品ページへ遷移できる" do
+    context '商品情報入力ページへ遷移できない' do
 
-    　
+     it "ログアウト状態だと出品ページへ遷移できない" do
+     @product.user_id = nil
+     expect(@product.errors.full_messages).to include "You need to sign in or sign up before continuing."
+     end
+    end
    end
+     
+   describe '商品情報入力' do
+
+    context '出品できない時' do
+
+     it "imageがないと出品できない" do
+        @product.image = nil
+        @product.valid?
+        expect(@product.errors.full_messages).to include "Image can't be blank"
+     end
+     
+     it "titleがないと出品できない" do
+        @product.title = ""
+        @product.valid?
+        expect(@product.errors.full_messages).to include "Title can't be blank"
+     end
+     
+     it "textがないと出品できない" do
+        @product.text = ""
+        @product.valid?
+        expect(@product.errors.full_messages).to include "Text can't be blank"
+     end
+     
+     it "categoryの情報がないと出品できない" do
+        @product.category_id
+        @product.valid?
+        expect(@product.errors.full_messages).to include include "Category must be other than 1"
+     end
+     
+     it "conditionの情報がないと出品できない" do
+        @product.condition_id
+        @product.valid?
+        expect(@product.errors.full_messages).to include "Condition must be other than 1"
+     end
+     
+     it "costについて情報がないと出品できない" do
+        @product.cost_id
+        @product.valid?
+        expect(@product.errors.full_messages).to include "Cost must be other than 1"
+     end
+     
+     it "prefectureついて情報がないと出品できない" do
+        @product.prefecture_id 
+        @product.valid?
+        expect(@product.errors.full_messages).to include "Prefecture must be other than 1"
+     end
+     
+     it "daysについて情報がないと出品できない" do
+        @product.days_id
+        @product.valid?
+        expect(@product.errors.full_messages).to include "Days must be other than 1"
+     end
+     
+     it "priceについて情報がないと出品できない" do
+        @product.price = ""
+        @product.valid?
+        expect(@product.errors.full_messages).to include "Price is not a number"
+     end
+     
+     it "価格が300以下だと出品できない" do
+        @product.price = "299"
+        @product.valid?
+        expect(@product.errors.full_messages).to include "Price must be greater than or equal to 300"
+     end
+     
+     it "価格が9999999以上だと出品できない" do
+        @product.price = "10000000"
+        @product.valid?
+        expect(@product.errors.full_messages).to include "Price must be less than or equal to 9999999"
+     end
+     
+     it "価格が半角英数字以外だと出品できない" do
+        @product.price = "１１１１１１"
+        @product.valid?
+        expect(@product.errors.full_messages).to include "Price is not a number"
+     end
+    end
    end
-   it "ログアウト状態なら出品ページへ遷移できない" do
-
-    include
-   end
-
-   it "商品画像がないと出品できない" do
-
-    include "Image can't be blank"
-   end
-
-   it "商品名がないと出品できない"　do
-
-    include "Name can't be blank"
-   end
-
-   it "商品説明がないと出品できない" do
-
-    include "Info can't be blank"
-   end
-
-   it "カテゴリーの情報がないと出品できない" do
-
-    include "Category Select"
-   end
-
-   it "商品状態の情報がないと出品できない" do
-
-    include "Sales status Select"
-   end
-
-   it "配送料の負担について情報がないと出品できない" do
-
-    include "Shipping fee status Select"
-   end
-
-   it "発想元の地域について情報がないと出品できない" do
-
-    include "Prefecture Select"
-   end
-
-   it "発送までの日数について情報がないと出品できない" do
-
-    include "Scheduled delivery Select"
-   end
-
-   it "価格の情報がないと出品できない" do
-
-    include "Price can't be blank"
-   end
-
-   it "価格が300以下だと出品できない" do
-
-    include "Price Out of setting range"
-   end
-
-   it "価格が9999999以上だと出品できない" do
-
-    include "Price Out of setting range"
-   end
-
-   it "販売価格は半角英数字のみであること" do
-
-    include "Price Half-width number"
-   end
-  end
 end
