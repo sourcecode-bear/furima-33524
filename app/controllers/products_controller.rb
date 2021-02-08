@@ -1,8 +1,7 @@
 class ProductsController < ApplicationController
-  #ログインしていないと出品ページに遷移できないようにページ制限をする
+  
   before_action :authenticate_user!, except:[:index]
 
-   # すべてのレコードを@productsに代入
  def index
     @products = Product.order("created_at DESC")
  end
