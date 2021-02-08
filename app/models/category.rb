@@ -14,7 +14,6 @@ class Category < ActiveHash::Base
   ]
 
   include ActiveHash::Associations
-  #商品を扱うので１対多
   has_many :Products
 
 end
