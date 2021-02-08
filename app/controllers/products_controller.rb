@@ -4,7 +4,6 @@ class ProductsController < ApplicationController
 
    # すべてのレコードを@productsに代入
  def index
-    @products = Product.all
     @products = Product.order("created_at DESC")
  end
 
