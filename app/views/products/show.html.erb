@@ -1,6 +1,6 @@
 <%= render "shared/header" %>
 
-<%# 商品の概要 %>
+
 <div class="item-show">
   <div class="item-box">
     <h2 class="name">
@@ -19,7 +19,7 @@
        <span class="item-postage"></span>
     </div>
 
-    <%# ログインしているユーザーと出品しているユーザーが、同一人物の場合と同一人物ではない場合で、処理を分けましょう %>
+    
     <% if user_signed_in? %>
      <% if current_user == @product.user %>
       <%= link_to "商品の編集", "#", method: :get, class: "item-red-btn" %>
@@ -31,8 +31,6 @@
       <%# //商品が売れていない場合はこちらを表示しましょう %>
      <% end %>
     <% end %>
-    <%# //ログインしているユーザーと出品しているユーザーが、同一人物の場合と同一人物ではない場合で、処理を分けましょう %>
-
     <div class="item-explain-box">
       <span><%= @product.text %></span>
     </div>
