@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update]
+  before_action :set_barrier, only: [:edit, :update]
   before_action :authenticate_user!, except:[:index, :show]
   
  def index
@@ -24,14 +25,8 @@ class ProductsController < ApplicationController
   end
 
    def edit
-        redirect_to root_path if @product.user.id != current_user.id  
     end
   
-
-    
-
-
-
   def update
     if @product.update(product_params)
       redirect_to product_path
@@ -51,6 +46,10 @@ class ProductsController < ApplicationController
   @product = Product.find(params[:id])
  end
 
+ def set_barrier
+  redirect_to root_path if @product.user.id != current_user.id
+ end
+ 
 end
 
 
