@@ -17,7 +17,7 @@
 ### Association
 
 - has_many :products
-- has_many :buyers
+- has_many :purchases
 
 ## products テーブル
 
@@ -36,9 +36,9 @@
 ### Association
 
 - belongs_to :user
-- has_one :buyer
+- has_one :purchase
 
-## buyers テーブル
+## purchases テーブル
 
 |column               |type        |options            |
 |---------------------|------------|-------------------|
@@ -49,10 +49,10 @@
 
 - belongs_to :user
 - belongs_to :product
-- has_one :shipping
+- has_one :address
 
 
-# shippings
+# address
 
 |column               |type        |options            |
 |---------------------|------------|-------------------|
@@ -61,9 +61,9 @@
 | city                | string     | null: false       |
 | house_number        | string     | null: false       |
 | building            | string     |                   |
-| telephone_number    | string     | null: false       |
-| buyer               | references | foreign_key: true |
+| phone_number        | string     | null: false       |
+| purchase            | references | foreign_key: true |
 
 ### Association
 
-- belongs_to :buyer
+- belongs_to :purchase
