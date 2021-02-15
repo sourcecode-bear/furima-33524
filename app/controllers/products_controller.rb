@@ -1,7 +1,8 @@
 class ProductsController < ApplicationController
+  before_action :authenticate_user!, except:[:index, :show]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :set_barrier, only: [:edit, :update, :destroy]
-  before_action :authenticate_user!, except:[:index, :show]
+  
   
  def index
     @products = Product.order("created_at DESC")
@@ -52,7 +53,7 @@ class ProductsController < ApplicationController
  end
 
  def set_barrier
-  redirect_to root_path if @product.user.id != current_user.id
+  redirect_to root_path if @product.user.id != current_user.id||@product.purchase
  end
  
 end
