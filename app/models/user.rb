@@ -2,10 +2,11 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   has_many :Product
-  
+  has_one :address
+  has_one :purchase
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-         
+       
   with_options presence: true do
     validates :nickname
     with_options format: {with: /\A[ぁ-んァ-ン一-龥々]/ } do
@@ -18,7 +19,8 @@ class User < ApplicationRecord
     end
     validates :birth_date
   end
+      
     VALID_PASSWORD_REGEX =/\A(?=.*?[a-z])(?=.*?[\d])\w{6,100}\z/
     validates :password, format: { with: VALID_PASSWORD_REGEX,
-                         message: "Password include both letters and numbers"}
- end
+                        message: "Password include both letters and numbers"}
+end
