@@ -1,22 +1,25 @@
 require 'rails_helper'
 
 RSpec.describe UserPurchase, type: :model do
-
+  describe '購入情報の保存' do
    before do
-     @user_purchase = FactoryBot.build(:user_purchase)
-   end
-   describe '購入情報の保存' do
+     @user = FactoryBot.create(:user)
+     @product = FactoryBot.create(:product)
+     @user_purchase = FactoryBot.build(:user_purchase, user_id: @user.id, product_id: @product.id )
+     sleep 0.1  
+    end
+   
      context '購入ができる時' do
        
       it "全ての項目が正く存在すれば登録できること" do
+       @user_purchase.valid?
        expect(@user_purchase).to be_valid
       end
 
       it "building_nameがなくても登録できること" do
-        @user_purchase.building_name = ""
+        @user_purchase.building_name = "東京ビル"
         expect(@user_purchase).to be_valid
        end
-      
      end
 
      context '購入できない時' do
@@ -56,7 +59,7 @@ RSpec.describe UserPurchase, type: :model do
       end
 
       it "prefecture_idの値が'1'だと購入できない" do
-        @user_purchase.prefecture_id = '1'
+        @user_purchase.prefecture_id = 1
         @user_purchase.valid?
         expect(@user_purchase.errors.full_messages).to include "Prefecture can't be blank"
       end
